@@ -1,7 +1,6 @@
-import org.apache.spark.sql.{DataFrame, Column, functions => F}
-import org.apache.spark.sql.functions.{col, to_date, to_timestamp, length, trim, date_format}
+import org.apache.spark.sql._
+import org.apache.spark.sql.functions._
 import scala.collection.mutable.ListBuffer
-import org.apache.spark.sql.{DataFrame, Row, SparkSession}
 
 
 class DataValidationImp {
@@ -128,6 +127,36 @@ class DataValidationImp {
     }
     invalidColumns
   }
+
+
+//  def validateFileFormat(df: DataFrame, row: BaseClass, invalidColumns: ListBuffer[(String, String)]): ListBuffer[(String, String)] = {
+//    val originalColumnName = row.columnName
+//    val detectFormat = udf { bytes: Array[Byte] =>
+//      if (bytes == null || bytes.length < 4) "unknown"
+//      else {
+//        val hex = bytes.take(4).map("%02X".format(_)).mkString
+//        hex match {
+//          case h if h.startsWith("25504446") => "pdf"
+//          case h if h.startsWith("FFD8FF")   => "jpeg"
+//          case h if h.startsWith("89504E47") => "png"
+//          case h if h.startsWith("504B0304") => "zip"
+//          case _ => "unknown"
+//        }
+//      }
+//    }
+//    val dfWithFormat = df.withColumn("detected_format", detectFormat(col("file_blob")))
+//    dfWithFormat.show()
+//    val invalidFiles = dfWithFormat
+//      .filter(col("detected_format").isNull
+//        || col("detected_format") =!= "pdf")
+//      .limit(1)
+//      .count() > 0
+//
+//    if (invalidFiles) {
+//      invalidColumns += (("file_blob", "Invalid format: not a PDF"))
+//    }
+//    invalidColumns
+//  }
 
 
   }
