@@ -58,7 +58,6 @@ import scala.collection.mutable.ListBuffer
       val invalidColumns = ListBuffer.empty[(String, String)] // mutable list
       val dataValidationImp= new DataValidationImp
 
-
       columnMetaData.columnMetaData.foreach { row =>
         val originalColumnName = row.columnName
         dataValidationImp.validateColumnTypes(df, row, invalidColumns)
